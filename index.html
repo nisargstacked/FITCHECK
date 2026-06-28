@@ -1,3 +1,6 @@
+
+
+Store tracker v2 · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
 :root {
   --bg:       #141918;
   --bg2:      #1a201e;
@@ -23,9 +26,9 @@
   --mono:  'Space Mono', monospace;
   --border: rgba(255,255,255,0.07);
 }
-
+ 
 html { scroll-behavior: smooth; }
-
+ 
 body {
   background: var(--bg);
   color: var(--text);
@@ -34,7 +37,7 @@ body {
   line-height: 1.6;
   min-height: 100vh;
 }
-
+ 
 /* ── NAV ── */
 nav {
   position: fixed;
@@ -69,6 +72,7 @@ nav {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--gold); }
 .nav-right {
   display: flex;
   gap: 1rem;
@@ -100,7 +104,7 @@ nav {
   transition: background 0.2s;
 }
 .add-btn-nav:hover { background: #dab95a; }
-
+ 
 /* ── SEARCH DRAWER ── */
 .search-drawer {
   position: fixed;
@@ -161,7 +165,7 @@ nav {
 }
 .filter-pill:hover { border-color: var(--gold-dim); color: var(--text); }
 .filter-pill.active { background: var(--gold); color: #0e0e0b; border-color: var(--gold); }
-
+ 
 /* ── HERO ── */
 .hero {
   position: relative;
@@ -222,7 +226,7 @@ nav {
   transition: background 0.2s;
 }
 .hero-dot.active { background: var(--gold); }
-
+ 
 .hero-side-text {
   position: absolute;
   left: 1.2rem;
@@ -234,7 +238,7 @@ nav {
   text-transform: uppercase;
   white-space: nowrap;
 }
-
+ 
 .hero-content {
   position: relative;
   z-index: 2;
@@ -292,7 +296,7 @@ nav {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(4px); }
 }
-
+ 
 /* Decorative background grid lines */
 .hero-grid {
   position: absolute;
@@ -303,7 +307,7 @@ nav {
   background-size: 60px 60px;
   pointer-events: none;
 }
-
+ 
 /* big ghost number */
 .hero-ghost-num {
   position: absolute;
@@ -316,7 +320,7 @@ nav {
   pointer-events: none;
   user-select: none;
 }
-
+ 
 /* ── STATS BAR ── */
 .stats-bar {
   background: var(--bg2);
@@ -349,7 +353,7 @@ nav {
   background: var(--border);
   flex-shrink: 0;
 }
-
+ 
 /* ── SECTION HEADER ── */
 .section-header {
   padding: 5rem 2.5rem 3rem;
@@ -393,20 +397,20 @@ nav {
   white-space: nowrap;
 }
 #storeCountDisplay { color: var(--gold); }
-
+ 
 /* ── STORE GRID ── */
 #board {
   padding: 0 2.5rem 6rem;
   background: var(--bg);
 }
-
+ 
 .grid-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 0;
   border-left: 1px solid var(--border);
 }
-
+ 
 /* ── STORE CARD ── */
 .card {
   position: relative;
@@ -428,10 +432,10 @@ nav {
 }
 .card:hover { background: var(--bg2); }
 .card:hover::before { background: var(--gold); }
-
+ 
 .card.fav { background: var(--bg2); }
 .card.fav::before { background: var(--gold); }
-
+ 
 .card.has-cart::after {
   content: '';
   position: absolute;
@@ -441,7 +445,7 @@ nav {
   border-width: 0 32px 32px 0;
   border-color: transparent var(--gold) transparent transparent;
 }
-
+ 
 /* ghost number behind card */
 .card-num {
   position: absolute;
@@ -455,7 +459,7 @@ nav {
   user-select: none;
   font-weight: 700;
 }
-
+ 
 .card-header {
   display: flex;
   align-items: flex-start;
@@ -490,7 +494,7 @@ nav {
   color: var(--text-faint);
   letter-spacing: 0.05em;
 }
-
+ 
 /* tags */
 .card-tags {
   display: flex;
@@ -507,7 +511,7 @@ nav {
 }
 .tag-fav { border-color: var(--gold-dim); color: var(--gold); }
 .tag-cart { border-color: rgba(255,255,255,0.2); color: var(--text-dim); }
-
+ 
 /* actions */
 .card-footer {
   display: flex;
@@ -518,7 +522,7 @@ nav {
   padding-top: 1.2rem;
 }
 .card-actions-left { display: flex; gap: 0.4rem; }
-
+ 
 .btn-sm {
   background: none;
   border: 1px solid var(--border);
@@ -539,7 +543,7 @@ nav {
 .btn-sm:hover { border-color: var(--text-dim); color: var(--text); }
 .btn-fav.active { border-color: var(--gold-dim); color: var(--gold); background: rgba(201,168,76,0.06); }
 .btn-cart.active { border-color: rgba(255,255,255,0.25); color: var(--text); background: rgba(255,255,255,0.04); }
-
+ 
 .btn-visit {
   font-size: 0.65rem;
   letter-spacing: 0.1em;
@@ -558,7 +562,7 @@ nav {
   transition: transform 0.15s;
 }
 .btn-visit:hover .btn-visit-arrow { transform: translate(2px, -2px); }
-
+ 
 .btn-del {
   background: none;
   border: none;
@@ -569,7 +573,7 @@ nav {
   transition: color 0.15s;
 }
 .btn-del:hover { color: #c0503a; }
-
+ 
 /* ── EMPTY ── */
 #emptyState {
   grid-column: 1 / -1;
@@ -580,7 +584,7 @@ nav {
 }
 #emptyState p { font-family: var(--serif); font-size: 1.5rem; font-style: italic; margin-bottom: 0.5rem; }
 #emptyState small { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
-
+ 
 /* ── MODAL ── */
 .modal-overlay {
   position: fixed;
@@ -695,7 +699,7 @@ nav {
   transition: color 0.15s;
 }
 .modal-close:hover { color: var(--text); }
-
+ 
 /* ── FOOTER ── */
 footer {
   background: var(--bg2);
@@ -725,12 +729,12 @@ footer {
   letter-spacing: 0.05em;
   align-self: flex-end;
 }
-
+ 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
-
+ 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 1rem 1.2rem; }
@@ -749,21 +753,21 @@ footer {
 </style>
 </head>
 <body>
-
+ 
 <!-- NAV -->
 <nav>
   <div class="nav-logo">STRBD</div>
   <ul class="nav-links">
-    <li><a href="#">All Stores</a></li>
-    <li><a href="#">Favourites</a></li>
-    <li><a href="#">Cart</a></li>
+    <li><a href="#" class="nav-filter active" data-filter="all">All Stores</a></li>
+    <li><a href="#" class="nav-filter" data-filter="favs">Favourites</a></li>
+    <li><a href="#" class="nav-filter" data-filter="cart">Cart</a></li>
   </ul>
   <div class="nav-right">
     <button id="navSearchToggle">Search</button>
     <button class="add-btn-nav" id="openAddModal">+ Add Store</button>
   </div>
 </nav>
-
+ 
 <!-- SEARCH DRAWER -->
 <div class="search-drawer" id="searchDrawer">
   <span class="search-prefix">/</span>
@@ -774,36 +778,38 @@ footer {
     <button class="filter-pill" data-filter="cart">Has Cart</button>
   </div>
 </div>
-
+ 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-silhouette"></div>
   <div class="hero-ghost-num" aria-hidden="true">S</div>
-
+ 
   <span class="hero-side-text">nisarg's personal store board</span>
-
+ 
   <div class="hero-label">
     <span>Start</span>
     <div class="hero-label-line"></div>
     <span>01</span>
   </div>
-
+ 
   <div class="hero-content">
     <div class="hero-eyebrow">
       <div class="hero-eyebrow-line"></div>
       <span>A Shopping Guide</span>
     </div>
     <h1 class="hero-title">
-      FITCHECK
+      Every Store<br>
+      <em>Worth Your Cart,</em><br>
+      In One Place.
     </h1>
     <a href="#board-section" class="hero-scroll">
       scroll down <span class="hero-scroll-arrow">↓</span>
     </a>
   </div>
 </section>
-
+ 
 <!-- STATS BAR -->
 <div class="stats-bar" id="statsBar">
   <div class="stat-item">
@@ -821,7 +827,7 @@ footer {
     <span class="stat-label">Active carts</span>
   </div>
 </div>
-
+ 
 <!-- SECTION HEADER -->
 <div class="section-header" id="board-section">
   <div>
@@ -837,7 +843,7 @@ footer {
     showing <span id="storeCountDisplay">0</span> stores
   </div>
 </div>
-
+ 
 <!-- BOARD -->
 <div id="board">
   <div class="grid-wrapper" id="gridWrapper">
@@ -847,7 +853,7 @@ footer {
     </div>
   </div>
 </div>
-
+ 
 <!-- FOOTER -->
 <footer>
   <div>
@@ -856,7 +862,7 @@ footer {
   </div>
   <div class="footer-copy">nisarg's personal tracker — all data saved locally</div>
 </footer>
-
+ 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
@@ -880,7 +886,7 @@ footer {
     </div>
   </div>
 </div>
-
+ 
 <script>
 // ── DATA ────────────────────────────────────────────
 const DEFAULT_STORES = [
@@ -912,11 +918,11 @@ const DEFAULT_STORES = [
   { id: 'wtflex', name: 'WTFLEX', url: 'https://wtflex.in' },
   { id: 'youngwear', name: 'Young Wear', url: 'https://www.youngwear.in' },
 ];
-
+ 
 let stores = [];
 let filter = 'all';
 let search = '';
-
+ 
 function load() {
   const saved = localStorage.getItem('storeboard_v3');
   if (saved) {
@@ -933,7 +939,7 @@ function load() {
   }
 }
 function save() { localStorage.setItem('storeboard_v3', JSON.stringify(stores)); }
-
+ 
 function getFavicon(url) {
   try { return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=64`; }
   catch { return ''; }
@@ -946,13 +952,13 @@ function esc(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function safeUrl(u) { try { return new URL(u).href; } catch { return '#'; } }
-
+ 
 // ── RENDER ──────────────────────────────────────────
 function render() {
   const grid = document.getElementById('gridWrapper');
   const empty = document.getElementById('emptyState');
   const countEl = document.getElementById('storeCountDisplay');
-
+ 
   let visible = stores.filter(s => {
     const q = search.toLowerCase();
     const matchSearch = s.name.toLowerCase().includes(q) || s.url.toLowerCase().includes(q);
@@ -961,23 +967,23 @@ function render() {
       || (filter === 'cart' && s.cart);
     return matchSearch && matchFilter;
   });
-
+ 
   [...grid.querySelectorAll('.card')].forEach(el => el.remove());
-
+ 
   countEl.textContent = visible.length;
   updateStats();
-
+ 
   if (visible.length === 0) {
     empty.style.display = 'block';
     return;
   }
   empty.style.display = 'none';
-
+ 
   visible.forEach((store, i) => {
     const card = document.createElement('div');
     card.className = 'card' + (store.fav ? ' fav' : '') + (store.cart ? ' has-cart' : '');
     card.dataset.id = store.id;
-
+ 
     card.innerHTML = `
       <div class="card-num" aria-hidden="true">${String(i+1).padStart(2,'0')}</div>
       <div class="card-header">
@@ -1010,7 +1016,7 @@ function render() {
         </div>
       </div>
     `;
-
+ 
     card.addEventListener('click', e => {
       const btn = e.target.closest('[data-action]');
       if (!btn) return;
@@ -1027,38 +1033,56 @@ function render() {
         }
       }
     });
-
+ 
     grid.insertBefore(card, empty);
   });
 }
-
+ 
 function updateStats() {
   document.getElementById('statTotal').textContent = stores.length;
   document.getElementById('statFavs').textContent = stores.filter(s => s.fav).length;
   document.getElementById('statCarts').textContent = stores.filter(s => s.cart).length;
 }
-
+ 
 // ── SEARCH & FILTER ──────────────────────────────────
 document.getElementById('searchInput').addEventListener('input', e => {
   search = e.target.value;
   render();
 });
-document.querySelectorAll('.filter-pill').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    filter = btn.dataset.filter;
-    render();
+ 
+function setFilter(f) {
+  filter = f;
+  // sync nav links
+  document.querySelectorAll('.nav-filter').forEach(a => {
+    a.classList.toggle('active', a.dataset.filter === f);
+  });
+  // sync drawer pills
+  document.querySelectorAll('.filter-pill').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === f);
+  });
+  render();
+}
+ 
+document.querySelectorAll('.nav-filter').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    setFilter(a.dataset.filter);
   });
 });
-
+ 
+document.querySelectorAll('.filter-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    setFilter(btn.dataset.filter);
+  });
+});
+ 
 // ── SEARCH DRAWER ────────────────────────────────────
 const searchDrawer = document.getElementById('searchDrawer');
 document.getElementById('navSearchToggle').addEventListener('click', () => {
   const open = searchDrawer.classList.toggle('open');
   if (open) document.getElementById('searchInput').focus();
 });
-
+ 
 // ── MODAL ────────────────────────────────────────────
 const overlay = document.getElementById('modalOverlay');
 function openModal() { overlay.classList.add('open'); setTimeout(() => document.getElementById('inputName').focus(), 100); }
@@ -1071,7 +1095,7 @@ document.getElementById('openAddModal').addEventListener('click', openModal);
 document.getElementById('closeModalX').addEventListener('click', closeModal);
 document.getElementById('cancelModal').addEventListener('click', closeModal);
 overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-
+ 
 document.getElementById('submitStore').addEventListener('click', () => {
   const name = document.getElementById('inputName').value.trim();
   let url = document.getElementById('inputUrl').value.trim();
@@ -1080,7 +1104,7 @@ document.getElementById('submitStore').addEventListener('click', () => {
   stores.push({ id: 'store_' + Date.now(), name, url, fav: false, cart: false });
   save(); render(); closeModal();
 });
-
+ 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeModal(); searchDrawer.classList.remove('open'); }
   if (e.key === 'Enter' && overlay.classList.contains('open')) document.getElementById('submitStore').click();
@@ -1090,10 +1114,13 @@ document.addEventListener('keydown', e => {
     document.getElementById('searchInput').focus();
   }
 });
-
+ 
 // ── INIT ─────────────────────────────────────────────
 load();
 render();
 </script>
 </body>
 </html>
+ 
+
+
