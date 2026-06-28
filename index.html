@@ -1,248 +1,806 @@
+
+
+Store tracker · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY STORES</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 20px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #2b2b2b;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-        h1 {
-            text-align: center;
-            color: #90caf9;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-        }
-        #store-list {
-            list-style: none;
-            padding: 0;
-        }
-        .store-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            margin-bottom: 10px;
-            background-color: #3a3a3a;
-            border: 1px solid #4f4f4f;
-            border-radius: 8px;
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-        }
-        .store-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            background-color: #4a4a4a;
-        }
-        .store-item.has-cart {
-            border: 2px solid #ffeb3b;
-            box-shadow: 0 0 10px #ffeb3b40;
-        }
-        .store-link {
-            text-decoration: none;
-            color: #e0e0e0;
-            font-size: 1.1em;
-            font-weight: 600;
-            flex-grow: 1;
-        }
-        .store-link:hover {
-            color: #90caf9;
-        }
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-left: 15px;
-        }
-        .action-btn {
-            background-color: #555;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.2em;
-            line-height: 1;
-            transition: background-color 0.2s, color 0.2s;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .action-btn:hover {
-            background-color: #777;
-        }
-        .favorite-btn::before {
-            content: '⭐';
-        }
-        .favorite-btn.is-favorite {
-            background-color: #e91e63;
-        }
-        .favorite-btn.is-favorite:hover {
-            background-color: #c2185b;
-        }
-        .favorite-btn.is-favorite::before {
-            content: '❤️';
-        }
-        .cart-btn::before {
-            content: '🛒';
-        }
-        .cart-btn.has-cart {
-            background-color: #ff9800;
-            color: black;
-        }
-        .cart-btn.has-cart:hover {
-            background-color: #fb8c00;
-        }
-        .cart-btn.has-cart::before {
-            content: '✅';
-        }
-        .store-item.is-favorite {
-            order: -1;
-            background-color: #3a3a3a;
-            border-color: #4f4f4f;
-            box-shadow: none;
-        }
-        .store-item.has-cart {
-            order: -2;
-            background-color: #44443a;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🛒 STORE BOARD — nisarg's chaos corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Share+Tech+Mono&family=Boogaloo&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  :root {
+    --neon-yellow: #FFE600;
+    --hot-pink: #FF2D78;
+    --electric-blue: #00F0FF;
+    --acid-green: #39FF14;
+    --orange: #FF6B00;
+    --bg: #0a0a0f;
+    --card-bg: #12121a;
+    --mono: 'Share Tech Mono', monospace;
+    --display: 'Black Han Sans', sans-serif;
+    --fun: 'Boogaloo', cursive;
+  }
+ 
+  body {
+    background: var(--bg);
+    color: #eee;
+    font-family: var(--mono);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse at 10% 20%, rgba(255,45,120,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(0,240,255,0.07) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+ 
+  /* ─── HEADER ─── */
+  header {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    position: relative;
+  }
+  header::after {
+    content: '';
+    display: block;
+    height: 3px;
+    background: linear-gradient(90deg, var(--hot-pink), var(--electric-blue), var(--neon-yellow), var(--acid-green));
+    margin-top: 1.2rem;
+    animation: rainbowShift 3s linear infinite;
+    background-size: 200%;
+  }
+  @keyframes rainbowShift {
+    0% { background-position: 0% }
+    100% { background-position: 200% }
+  }
+ 
+  .site-title {
+    font-family: var(--display);
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--neon-yellow) 0%, var(--hot-pink) 50%, var(--electric-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    position: relative;
+  }
+  .site-subtitle {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--acid-green);
+    letter-spacing: 0.2em;
+    margin-top: 0.3rem;
+    opacity: 0.8;
+  }
+  .site-subtitle::before { content: '> '; }
+  .site-subtitle::after { content: '_'; animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+ 
+  /* ─── CONTROLS BAR ─── */
+  .controls {
+    max-width: 1400px;
+    margin: 1.5rem auto 0;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+ 
+  .search-wrap {
+    position: relative;
+    flex: 1 1 260px;
+  }
+  .search-wrap::before {
+    content: '$ ';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--acid-green);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+  #searchInput {
+    width: 100%;
+    padding: 0.6rem 0.75rem 0.6rem 2.2rem;
+    background: #050508;
+    border: 1.5px solid var(--acid-green);
+    color: var(--acid-green);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    outline: none;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(57,255,20,0.15), inset 0 0 10px rgba(0,0,0,0.5);
+    transition: box-shadow 0.2s;
+  }
+  #searchInput::placeholder { color: rgba(57,255,20,0.35); }
+  #searchInput:focus { box-shadow: 0 0 20px rgba(57,255,20,0.4), inset 0 0 10px rgba(0,0,0,0.5); }
+ 
+  .filter-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .filter-btn {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    border: 1.5px solid currentColor;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.15s;
+    color: #888;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--hot-pink);
+    border-color: var(--hot-pink);
+    color: #fff;
+    box-shadow: 0 0 12px rgba(255,45,120,0.5);
+  }
+  .filter-btn[data-filter="favs"].active {
+    background: var(--neon-yellow);
+    border-color: var(--neon-yellow);
+    color: #000;
+    box-shadow: 0 0 12px rgba(255,230,0,0.5);
+  }
+  .filter-btn[data-filter="cart"].active {
+    background: var(--electric-blue);
+    border-color: var(--electric-blue);
+    color: #000;
+    box-shadow: 0 0 12px rgba(0,240,255,0.5);
+  }
+ 
+  .add-btn {
+    font-family: var(--fun);
+    font-size: 1.1rem;
+    padding: 0.5rem 1.2rem;
+    background: var(--hot-pink);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    box-shadow: 4px 4px 0 #000;
+    transition: transform 0.1s, box-shadow 0.1s;
+    white-space: nowrap;
+  }
+  .add-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #000; }
+  .add-btn:active { transform: translate(1px,1px); box-shadow: 2px 2px 0 #000; }
+ 
+  /* ─── COUNTER ─── */
+  .count-bar {
+    max-width: 1400px;
+    margin: 0.75rem auto 0;
+    padding: 0 1.5rem;
+    font-size: 0.7rem;
+    color: #555;
+    letter-spacing: 0.1em;
+  }
+  #storeCount { color: var(--electric-blue); }
+ 
+  /* ─── BOARD ─── */
+  #board {
+    max-width: 1400px;
+    margin: 1.5rem auto 4rem;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+ 
+  /* ─── CARD ─── */
+  .card {
+    width: 210px;
+    min-height: 150px;
+    background: var(--card-bg);
+    border: 2px solid #222;
+    padding: 1rem 1rem 0.75rem;
+    position: relative;
+    cursor: default;
+    transition: transform 0.25s cubic-bezier(.36,.07,.19,.97), box-shadow 0.2s;
+    border-radius: 1px;
+    /* random slight rotation set inline via JS */
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  /* torn paper top edge */
+  .card::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 0; right: 0;
+    height: 7px;
+    background: var(--card-bg);
+    clip-path: polygon(0% 100%, 3% 0%, 7% 80%, 11% 10%, 15% 90%, 20% 20%, 25% 85%, 30% 15%, 35% 95%, 40% 5%, 45% 75%, 50% 20%, 55% 80%, 60% 0%, 65% 90%, 70% 15%, 75% 85%, 80% 5%, 85% 70%, 90% 25%, 95% 85%, 100% 0%, 100% 100%);
+  }
+  .card:hover {
+    animation: cardWobble 0.4s ease;
+    box-shadow: 0 0 0 2px var(--hot-pink), 8px 8px 0 #000;
+    z-index: 10;
+  }
+  @keyframes cardWobble {
+    0%   { transform: rotate(var(--rot)) scale(1); }
+    20%  { transform: rotate(calc(var(--rot) + 3deg)) scale(1.04); }
+    40%  { transform: rotate(calc(var(--rot) - 2deg)) scale(1.03); }
+    60%  { transform: rotate(calc(var(--rot) + 1.5deg)) scale(1.04); }
+    80%  { transform: rotate(calc(var(--rot) - 0.5deg)) scale(1.02); }
+    100% { transform: rotate(var(--rot)) scale(1.03); }
+  }
+ 
+  /* favourite glow */
+  .card.fav {
+    border-color: var(--neon-yellow);
+    box-shadow: 0 0 18px rgba(255,230,0,0.3), 0 0 40px rgba(255,230,0,0.1);
+  }
+  .card.fav:hover {
+    box-shadow: 0 0 24px rgba(255,230,0,0.6), 8px 8px 0 #000;
+  }
+ 
+  /* cart state */
+  .card.has-cart {
+    border-color: var(--electric-blue);
+    box-shadow: 0 0 14px rgba(0,240,255,0.25);
+    animation: cartPulse 2s ease-in-out infinite;
+  }
+  @keyframes cartPulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(0,240,255,0.25); }
+    50% { box-shadow: 0 0 28px rgba(0,240,255,0.5); }
+  }
+  .card.fav.has-cart {
+    border-color: var(--hot-pink);
+    box-shadow: 0 0 14px rgba(255,45,120,0.4), 0 0 40px rgba(255,230,0,0.1);
+    animation: bothPulse 2s ease-in-out infinite;
+  }
+  @keyframes bothPulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(255,45,120,0.4), 0 0 40px rgba(255,230,0,0.1); }
+    50% { box-shadow: 0 0 28px rgba(255,45,120,0.7), 0 0 50px rgba(255,230,0,0.2); }
+  }
+ 
+  /* ─── CARD INTERNALS ─── */
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+  .card-favicon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    background: #1a1a22;
+    object-fit: contain;
+    border: 1px solid #333;
+  }
+  .card-name {
+    font-family: var(--fun);
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #fff;
+    word-break: break-word;
+    flex: 1;
+  }
+ 
+  .card-url {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: #555;
+    word-break: break-all;
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+ 
+  .card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+ 
+  .btn-icon {
+    background: none;
+    border: 1.5px solid #333;
+    border-radius: 2px;
+    color: #666;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 32px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-icon:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.05); }
+ 
+  .btn-fav { }
+  .btn-fav.active { border-color: var(--neon-yellow); color: var(--neon-yellow); background: rgba(255,230,0,0.08); }
+ 
+  .btn-cart.active { border-color: var(--electric-blue); color: var(--electric-blue); background: rgba(0,240,255,0.08); }
+  .btn-cart.active { animation: cartShake 0.5s ease; }
+  @keyframes cartShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-3px) rotate(-5deg); }
+    40% { transform: translateX(3px) rotate(5deg); }
+    60% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
+  }
+ 
+  .btn-visit {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0 0.5rem;
+    height: 28px;
+    width: auto;
+    border-color: #333;
+    color: #666;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.05em;
+    flex: 1;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .btn-visit:hover {
+    border-color: var(--acid-green);
+    color: var(--acid-green);
+    background: rgba(57,255,20,0.05);
+  }
+ 
+  .btn-del {
+    border-color: #2a1515;
+    color: #442222;
+    font-size: 0.8rem;
+  }
+  .btn-del:hover { border-color: var(--hot-pink); color: var(--hot-pink); background: rgba(255,45,120,0.05); }
+ 
+  /* ─── BADGES ─── */
+  .badge-star {
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    font-size: 1.4rem;
+    filter: drop-shadow(0 0 4px var(--neon-yellow));
+    animation: starSpin 4s linear infinite;
+    display: none;
+  }
+  .card.fav .badge-star { display: block; }
+  @keyframes starSpin {
+    0%, 90% { transform: rotate(0deg); }
+    95% { transform: rotate(20deg); }
+    100% { transform: rotate(0deg); }
+  }
+ 
+  .badge-cart {
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    font-size: 1.1rem;
+    display: none;
+    animation: cartBounce 0.8s ease infinite alternate;
+  }
+  .card.has-cart .badge-cart { display: block; }
+  @keyframes cartBounce {
+    from { transform: translateY(0) rotate(-10deg); }
+    to   { transform: translateY(-4px) rotate(10deg); }
+  }
+  .cart-dot {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 8px; height: 8px;
+    background: var(--hot-pink);
+    border-radius: 50%;
+    animation: dotBlink 0.7s step-end infinite;
+  }
+  @keyframes dotBlink { 50% { opacity: 0; } }
+ 
+  /* ─── EMPTY STATE ─── */
+  #emptyState {
+    width: 100%;
+    padding: 4rem 1rem;
+    text-align: center;
+    color: #333;
+    font-family: var(--mono);
+    display: none;
+  }
+  #emptyState span { font-size: 3rem; display: block; margin-bottom: 1rem; }
+ 
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+ 
+  .modal {
+    background: #0d0d14;
+    border: 2px solid var(--hot-pink);
+    box-shadow: 0 0 40px rgba(255,45,120,0.3), 8px 8px 0 rgba(255,45,120,0.2);
+    padding: 2rem;
+    width: min(420px, 90vw);
+    position: relative;
+    font-family: var(--mono);
+  }
+  .modal-title {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    color: var(--hot-pink);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+  .modal label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--acid-green);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .modal input {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    background: #050508;
+    border: 1.5px solid #333;
+    color: #eee;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    outline: none;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    transition: border-color 0.15s;
+  }
+  .modal input:focus { border-color: var(--hot-pink); }
+  .modal-btns { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+  .modal-submit {
+    flex: 1;
+    padding: 0.7rem;
+    background: var(--hot-pink);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: var(--fun);
+    font-size: 1.1rem;
+    box-shadow: 3px 3px 0 #000;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .modal-submit:hover { transform: translate(-1px,-1px); box-shadow: 5px 5px 0 #000; }
+  .modal-cancel {
+    padding: 0.7rem 1.2rem;
+    background: transparent;
+    color: #666;
+    border: 1.5px solid #333;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .modal-cancel:hover { border-color: #666; color: #aaa; }
+  .modal-close {
+    position: absolute;
+    top: 0.75rem; right: 0.75rem;
+    background: none; border: none;
+    color: #555; font-size: 1.2rem;
+    cursor: pointer; line-height: 1;
+  }
+  .modal-close:hover { color: #fff; }
+ 
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #050508; }
+  ::-webkit-scrollbar-thumb { background: var(--hot-pink); border-radius: 3px; }
+ 
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .card { width: calc(50% - 0.6rem); min-width: 140px; }
+  }
+  @media (max-width: 380px) {
+    .card { width: 100%; }
+  }
+ 
+  /* ─── DECORATIVE NOISE ─── */
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+ 
+  /* floating sticker labels */
+  .sticker {
+    display: inline-block;
+    font-family: var(--fun);
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+  }
+  .sticker-fav { background: var(--neon-yellow); color: #000; }
+  .sticker-cart { background: var(--electric-blue); color: #000; }
+</style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>FITCHECK</h1>
-        <ul id="store-list">
-
-        </ul>
+ 
+<div class="noise-overlay"></div>
+ 
+<header>
+  <div class="site-title">STORE BOARD</div>
+  <div class="site-subtitle">nisarg's personal chaos tracker — keep it 100</div>
+</header>
+ 
+<div class="controls">
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="search stores..." autocomplete="off" spellcheck="false" />
+  </div>
+  <div class="filter-btns">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="favs">⭐ Favs</button>
+    <button class="filter-btn" data-filter="cart">🛒 Cart</button>
+  </div>
+  <button class="add-btn" id="openAddModal">+ ADD STORE</button>
+</div>
+ 
+<div class="count-bar">
+  showing <span id="storeCount">0</span> stores
+</div>
+ 
+<div id="board">
+  <div id="emptyState"><span>🌀</span>nothing here yet...<br><small>add a store or change your filter</small></div>
+</div>
+ 
+<!-- ADD STORE MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="closeModal">✕</button>
+    <div class="modal-title">+ NEW STORE</div>
+    <label for="inputName">Store Name</label>
+    <input type="text" id="inputName" placeholder="e.g. Snitch" />
+    <label for="inputUrl">URL</label>
+    <input type="text" id="inputUrl" placeholder="e.g. https://snitch.com" />
+    <div class="modal-btns">
+      <button class="modal-submit" id="submitStore">ADD IT 🔥</button>
+      <button class="modal-cancel" id="closeModal2">cancel</button>
     </div>
-
-    <script>
-        const storeData = [
-            { id: 'badandboujeeindia', name: 'Bad and Boujee India', url: 'https://badandboujee.in' },
-            { id: 'berksha', name: 'Berksha', url: 'https://www.bershka.com' },
-            { id: 'beseksy', name: 'Beseksy', url: 'https://beseksy.in/' },
-            { id: 'blurgvillage', name: 'BlurgVillage', url: 'https://blurgvillage.com/' },
-            { id: 'bonkerscorner', name: 'Bonkers Corner', url: 'https://www.bonkerscorner.com/' },
-            { id: 'cannac', name: 'Cannac', url: 'https://cannac.in' },
-            { id: 'crazzyheads', name: 'Crayy Heads', url: 'https://crayyheads.com' },  
-            { id: 'enzemble', name: 'Enzemble', url: 'https://enzemble.in' },
-            { id: 'dap drip monkey', name: 'Dap Drip Monkey', url: 'https://dapdripmonkey.com' },
-            { id: 'dlstreet', name: 'DL Street', url: 'https://thedlstreet.com/' },
-            { id: 'fadl', name: 'FADL', url: 'https://fadl.in' },
-            { id: 'Grindoverdreams', name: 'GrindOverDreams', url: 'https://grindoverdreams.in/' },
-            { id: 'H&M', name: 'H&M', url: 'https://www2.hm.com' },          
-            { id: 'madebycltrshirts', name: 'Made by CLTR Shirts', url: 'https://cltrshop.in/collections/bowling-shirts' },
-            { id: 'maincharacterindia', name: 'Main Character India', url: 'https://www.maincharacterindia.com' },
-            { id: 'midhours', name: 'Midhours', url: 'https://midhours.com' },
-            { id: 'ogfr', name: 'OG For Real', url: 'https://ogforreal.com' },
-            { id: 'shopfootball', name: 'Shop Football', url: 'https://shopfootball.in' },
-            { id: 'six5sixstreet', name: 'Six5Six Street', url: 'https://www.six5sixstreet.com' },
-            { id: 'snitch', name: 'Snitch', url: 'https://www.snitch.com/' },
-            { id: 'sohstore', name: 'SOH Stores', url: 'https://sohstores.com' },
-            { id: 'stooky', name: 'Stooky', url: 'https://stooky.in' },
-            { id: 'untld', name: 'UNTLD Blank', url: 'https://untld.in' },
-            { id: 'wearadhd', name: 'Wear ADHD', url: 'https://wearadhd.com' },
-            { id: 'wtfit', name: 'WTFIT', url: 'https://wtfit.in' },
-            { id: 'wtflex', name: 'WTFLEX', url: 'https://wtflex.in' },
-            { id: 'youngwear', name: 'Young Wear', url: 'https://www.youngwear.in' }
-        ];
-
-        const list = document.getElementById('store-list');
-        const FAV_STORAGE_KEY = 'favoriteStores';
-        const CART_STORAGE_KEY = 'cartStores';
-
-        function getItems(key) {
-            const items = localStorage.getItem(key);
-            return items ? JSON.parse(items) : {};
+  </div>
+</div>
+ 
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────
+const DEFAULT_STORES = [
+  { id: 'badandboujeeindia', name: 'Bad and Boujee India', url: 'https://badandboujee.in' },
+  { id: 'berksha', name: 'Bershka', url: 'https://www.bershka.com' },
+  { id: 'beseksy', name: 'Beseksy', url: 'https://beseksy.in/' },
+  { id: 'blurgvillage', name: 'BlurgVillage', url: 'https://blurgvillage.com/' },
+  { id: 'bonkerscorner', name: 'Bonkers Corner', url: 'https://www.bonkerscorner.com/' },
+  { id: 'cannac', name: 'Cannac', url: 'https://cannac.in' },
+  { id: 'crazzyheads', name: 'Crayyy Heads', url: 'https://crayyheads.com' },
+  { id: 'enzemble', name: 'Enzemble', url: 'https://enzemble.in' },
+  { id: 'dapdripmonkey', name: 'Dap Drip Monkey', url: 'https://dapdripmonkey.com' },
+  { id: 'dlstreet', name: 'DL Street', url: 'https://thedlstreet.com/' },
+  { id: 'fadl', name: 'FADL', url: 'https://fadl.in' },
+  { id: 'grindoverdreams', name: 'GrindOverDreams', url: 'https://grindoverdreams.in/' },
+  { id: 'hm', name: 'H&M', url: 'https://www2.hm.com' },
+  { id: 'cltrshrts', name: 'CLTR Shirts', url: 'https://cltrshop.in/collections/bowling-shirts' },
+  { id: 'maincharacter', name: 'Main Character India', url: 'https://www.maincharacterindia.com' },
+  { id: 'midhours', name: 'Midhours', url: 'https://midhours.com' },
+  { id: 'ogforreal', name: 'OG For Real', url: 'https://ogforreal.com' },
+  { id: 'shopfootball', name: 'Shop Football', url: 'https://shopfootball.in' },
+  { id: 'six5six', name: 'Six5Six Street', url: 'https://www.six5sixstreet.com' },
+  { id: 'snitch', name: 'Snitch', url: 'https://www.snitch.com/' },
+  { id: 'sohstores', name: 'SOH Stores', url: 'https://sohstores.com' },
+  { id: 'stooky', name: 'Stooky', url: 'https://stooky.in' },
+  { id: 'untld', name: 'UNTLD Blank', url: 'https://untld.in' },
+  { id: 'wearadhd', name: 'Wear ADHD', url: 'https://wearadhd.com' },
+  { id: 'wtfit', name: 'WTFIT', url: 'https://wtfit.in' },
+  { id: 'wtflex', name: 'WTFLEX', url: 'https://wtflex.in' },
+  { id: 'youngwear', name: 'Young Wear', url: 'https://www.youngwear.in' },
+];
+ 
+const ROTATIONS = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
+ 
+function getRot(id) {
+  // deterministic rotation per store id
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) & 0xFFFF;
+  return ROTATIONS[h % ROTATIONS.length];
+}
+ 
+function getFavicon(url) {
+  try {
+    const domain = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+  } catch { return ''; }
+}
+ 
+// ─── STATE ───────────────────────────────────────────────────────────────
+let stores = [];
+let filter = 'all';
+let search = '';
+ 
+function load() {
+  const saved = localStorage.getItem('storeboard_v2');
+  if (saved) {
+    stores = JSON.parse(saved);
+  } else {
+    stores = DEFAULT_STORES.map(s => ({ ...s, fav: false, cart: false }));
+    save();
+  }
+}
+ 
+function save() {
+  localStorage.setItem('storeboard_v2', JSON.stringify(stores));
+}
+ 
+// ─── RENDER ───────────────────────────────────────────────────────────────
+function render() {
+  const board = document.getElementById('board');
+  const empty = document.getElementById('emptyState');
+  const countEl = document.getElementById('storeCount');
+ 
+  let visible = stores.filter(s => {
+    const matchSearch = s.name.toLowerCase().includes(search.toLowerCase()) ||
+                        s.url.toLowerCase().includes(search.toLowerCase());
+    const matchFilter = filter === 'all' ||
+                        (filter === 'favs' && s.fav) ||
+                        (filter === 'cart' && s.cart);
+    return matchSearch && matchFilter;
+  });
+ 
+  // remove old cards (keep emptyState)
+  [...board.querySelectorAll('.card')].forEach(el => el.remove());
+  countEl.textContent = visible.length;
+ 
+  if (visible.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+ 
+  visible.forEach(store => {
+    const rot = getRot(store.id);
+    const card = document.createElement('div');
+    card.className = 'card' + (store.fav ? ' fav' : '') + (store.cart ? ' has-cart' : '');
+    card.style.setProperty('--rot', rot + 'deg');
+    card.style.transform = `rotate(${rot}deg)`;
+    card.dataset.id = store.id;
+ 
+    const favicon = getFavicon(store.url);
+    const domain = (() => { try { return new URL(store.url).hostname; } catch { return store.url; } })();
+ 
+    card.innerHTML = `
+      <span class="badge-star">⭐</span>
+      <div class="badge-cart" style="position:relative;display:inline-block;">🛒<span class="cart-dot"></span></div>
+ 
+      <div class="card-top">
+        <img class="card-favicon" src="${favicon}" alt="" onerror="this.style.opacity=0" />
+        <div class="card-name">${escHtml(store.name)}</div>
+      </div>
+      <div class="card-url">${escHtml(domain)}</div>
+      <div class="card-actions">
+        <button class="btn-icon btn-fav${store.fav ? ' active' : ''}" title="Favourite" data-action="fav">⭐</button>
+        <button class="btn-icon btn-cart${store.cart ? ' active' : ''}" title="Items in cart" data-action="cart">🛒</button>
+        <a class="btn-icon btn-visit" href="${encodeURL(store.url)}" target="_blank" rel="noopener" title="Visit">↗ visit</a>
+        <button class="btn-icon btn-del" title="Delete" data-action="del">✕</button>
+      </div>
+    `;
+ 
+    card.addEventListener('click', e => {
+      const btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      const action = btn.dataset.action;
+      const id = card.dataset.id;
+      const s = stores.find(x => x.id === id);
+      if (!s) return;
+ 
+      if (action === 'fav') {
+        s.fav = !s.fav;
+        save();
+        render();
+      } else if (action === 'cart') {
+        s.cart = !s.cart;
+        save();
+        render();
+      } else if (action === 'del') {
+        if (confirm(`Remove "${s.name}"?`)) {
+          stores = stores.filter(x => x.id !== id);
+          save();
+          render();
         }
-
-        function saveItems(key, items) {
-            localStorage.setItem(key, JSON.stringify(items));
-        }
-
-        function renderList() {
-            const favorites = getItems(FAV_STORAGE_KEY);
-            const carts = getItems(CART_STORAGE_KEY);
-
-            const sortedStores = storeData.sort((a, b) => {
-                const isACart = carts[a.id];
-                const isBCart = carts[b.id];
-                const isAFav = favorites[a.id];
-                const isBFav = favorites[b.id];
-
-                if (isACart && !isBCart) return -1;
-                if (!isACart && isBCart) return 1;
-
-                if (isAFav && !isBFav) return -1;
-                if (!isAFav && isBFav) return 1;
-
-                return a.name.localeCompare(b.name);
-            });
-
-            list.innerHTML = '';
-
-            sortedStores.forEach(store => {
-                const isFavorite = favorites[store.id];
-                const isInCart = carts[store.id];
-
-                const li = document.createElement('li');
-                li.className = 'store-item' + (isFavorite ? ' is-favorite' : '') + (isInCart ? ' has-cart' : '');
-                li.setAttribute('data-id', store.id);
-
-                const link = document.createElement('a');
-                link.className = 'store-link';
-                link.href = store.url;
-                link.target = '_blank';
-                link.textContent = store.name;
-                
-                const buttonGroup = document.createElement('div');
-                buttonGroup.className = 'button-group';
-
-                const cartButton = document.createElement('button');
-                cartButton.className = 'action-btn cart-btn' + (isInCart ? ' has-cart' : '');
-                cartButton.addEventListener('click', () => toggleItem(store.id, CART_STORAGE_KEY));
-
-                const favoriteButton = document.createElement('button');
-                favoriteButton.className = 'action-btn favorite-btn' + (isFavorite ? ' is-favorite' : '');
-                favoriteButton.addEventListener('click', () => toggleItem(store.id, FAV_STORAGE_KEY));
-
-                buttonGroup.appendChild(cartButton);
-                buttonGroup.appendChild(favoriteButton);
-
-                li.appendChild(link);
-                li.appendChild(buttonGroup);
-                list.appendChild(li);
-            });
-        }
-
-        function toggleItem(storeId, key) {
-            const items = getItems(key);
-            if (items[storeId]) {
-                delete items[storeId];
-            } else {
-                items[storeId] = true;
-            }
-            saveItems(key, items);
-            renderList();
-        }
-
-        document.addEventListener('DOMContentLoaded', renderList);
-    </script>
-
+      }
+    });
+ 
+    board.insertBefore(card, empty);
+  });
+}
+ 
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function encodeURL(url) {
+  // basic safety
+  try { return new URL(url).href; } catch { return '#'; }
+}
+ 
+// ─── CONTROLS ────────────────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('input', e => {
+  search = e.target.value;
+  render();
+});
+ 
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filter = btn.dataset.filter;
+    render();
+  });
+});
+ 
+// ─── MODAL ───────────────────────────────────────────────────────────────
+const overlay = document.getElementById('modalOverlay');
+function openModal() { overlay.classList.add('open'); document.getElementById('inputName').focus(); }
+function closeModal() {
+  overlay.classList.remove('open');
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputUrl').value = '';
+}
+ 
+document.getElementById('openAddModal').addEventListener('click', openModal);
+document.getElementById('closeModal').addEventListener('click', closeModal);
+document.getElementById('closeModal2').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+ 
+document.getElementById('submitStore').addEventListener('click', () => {
+  const name = document.getElementById('inputName').value.trim();
+  let url = document.getElementById('inputUrl').value.trim();
+  if (!name || !url) { alert('name and url both needed!'); return; }
+  if (!url.startsWith('http')) url = 'https://' + url;
+  const id = 'store_' + Date.now();
+  stores.push({ id, name, url, fav: false, cart: false });
+  save();
+  render();
+  closeModal();
+});
+ 
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'Enter' && overlay.classList.contains('open')) {
+    document.getElementById('submitStore').click();
+  }
+});
+ 
+// ─── INIT ─────────────────────────────────────────────────────────────────
+load();
+render();
+</script>
 </body>
 </html>
+ 
